@@ -1,0 +1,53 @@
+#include <ceres/ceres.h>
+#include <ceres/rotation.h>
+#include <opencv2/opencv.hpp>
+#include "../map/map.h"
+#include "../frame/frame.h"
+#include "../includes.h"
+
+class BundleAdj {
+    class ReprojectCost {
+        cv::Point2d observation;
+        public:
+            ReprojectCost(const cv::Point2d &observation) : observation(observation) {}
+
+            template<typename T>
+            bool operator()(const T *const intrinsic, const T *const extrinsic, const T *const pos3d, T *residuals) const {
+                const T *r = extrinsic;
+                const T *t = &extrinsic[3];
+                T pos_proj[3];
+                ceres::AngleAxisRotatePoint(r, pos3d, pos_proj);
+                pos_proj[0] += t[0];
+                pos_proj[1] += t[1];
+                pos_proj[2] += t[2];
+                const T x = pos_proj[0] / pos_proj[2];
+                const T y = pos_proj[1] / pos_proj[2];
+                
+                const T fx = intrinsic[0], fy = intrinsic[1], cx = intrinsic[2], cy = intrinsic[3];
+
+                const T u = fx * x + cx;
+                const T v = fy * y + cy;
+
+                residuals[0] = u - T(observation.x);
+                residuals[1] = v - T(observation.y);
+
+                return true;
+            }
+    };
+
+    Map::Ptr map;
+    ceres::Solver::Options ceres_config;
+
+    unordered_map<Camera::Ptr, Matx14d> cameraIntrinsics;
+    unordered_map<Frame::Ptr, Matx23d> frameExtrinsics;
+    unordered_map<MapPoint::Ptr, Matx13d> mapPointsPos;
+
+    void loadMap();
+    void bundleAdjustment();
+    void writeMap();
+    void clear();
+
+    public:
+        BundleAdj();
+        void operator()(Map::Ptr &map);
+};

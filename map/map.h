@@ -6,7 +6,7 @@ class Map {
     public:
         typedef shared_ptr<Map> Ptr;
         list<MapPoint::Ptr> mapPoints;
-        list<Frame::Ptr> frames;
+        list<Frame::Ptr> frames; // 点被观测到的帧
 
         Map() {}
         void addFrame(Frame::Ptr frame);
