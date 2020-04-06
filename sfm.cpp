@@ -113,11 +113,40 @@ void SFM::saveMapPoints(const Mat& inlierMask, const Mat &points4D, const vector
         } else {
             Mat x = points4D.col(i);
             Vec3b rgb;
-            if (keyFrame2->image.type() == CV_8UC1) {
-                
+            if (keyFrame2->image.type() == CV_8UC3) {
+                rgb = keyFrame2->image.at<Vec3b>(keyFrame2->keyPoints[matches[i].trainIdx].pt);
+                swap(rgb[0], rgb[2]);
+            } else if (keyFrame2->image.type() == CV_8UC1) {
+                cvtColor(keyFrame2->image.at<uint8_t>(keyFrame2->keyPoints[matches[i].trainIdx].pt), rgb, COLOR_GRAY2RGB);
             }
+
+            if (x.type() == CV_32FC1) {
+                // 归一化
+                x = x / x.at<float>(3, 0);
+                mapPoint = MapPoint::Ptr(new MapPoint(
+                    Vector3d(x.at<float>(0, 0), x.at<float>(1, 0), x.at<float>(2, 0)),
+                    descriptor,
+                    rgb
+                ));
+            } else if (x.type() == CV_64FC1) {
+                x = x / x.at<double>(3, 0);
+                mapPoint = MapPoint::Ptr(new MapPoint(
+                    Vector3d(x.at<double>(0, 0), x.at<double>(1, 0), x.at<double>(2, 0)),
+                    descriptor,
+                    rgb
+                ));
+            }
+
+            keyFrame2->inlinerPoints[matches[i].trainIdx] = mapPoint;
+            mapPoint->addObservedFrame(keyFrame1->frame, keyFrame1->keyPoints[matches[i].queryIdx].pt);
+            mapPoint->addObservedFrame(keyFrame2->frame, keyFrame2->keyPoints[matches[i].trainIdx].pt);
+
+            localMap->addMapPoint(mapPoint);
+
         }
     }
+    BundleAdj ba;
+    ba(localMap);
 }
 
 
