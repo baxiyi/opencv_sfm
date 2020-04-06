@@ -25,14 +25,6 @@ class Camera {
         Vector2d worldToPixel(const Vector3d &p_w, const SE3 &T_c_w);
         Point2f pixelToNormal(const Point2d &p) const;
 
-        float getFocalLength() {
-            return (fx + fy) / 2;
-        }
-
-        cv::Point2d getPrincipalPoint() {
-            return cv::Point2d(cx, cy);
-        }
-
         cv::Matx<float, 3, 3> getKMatxCV() {
             return cv::Matx<float, 3, 3>(fx, 0, cx, 0, fy, cy, 0, 0, 1);
         }

@@ -1,0 +1,2 @@
+/home/parallels/Desktop/opencv_sfm/build/CMakeFiles/rebuild_cache.dir
+/home/parallels/Desktop/opencv_sfm/build/CMakeFiles/edit_cache.dir

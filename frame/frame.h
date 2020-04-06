@@ -14,7 +14,7 @@ class Frame {
         Frame() : camera(nullptr) {}
         Frame(const Camera::Ptr &camera, const Mat &image):
             camera(camera), cols(image.cols), rows(image.rows) {}
-        ~Frame();
+        ~Frame() {}
 
         Vector3d getCameraCenterEigen() const {
             return Tcw.inverse().translation();
