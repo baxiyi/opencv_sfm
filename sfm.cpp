@@ -55,7 +55,53 @@ void SFM::step(Mat &image, const Camera::Ptr &camera) {
             descriptorMap.push_back(point->descriptor);
         }
     }
-    // todo
+    vector<DMatch> matches;
+    matcher->match(descriptorMap, keyFrame2->descriptors, matches, noArray());
+    filtMatches(matches);
+
+    vector<Point2f> points2DPnP;
+    vector<Point3f> points3DPnP;
+    for (auto match:matches) {
+        points2DPnP.push_back(keyFrame2->keyPoints[match.trainIdx].pt);
+        points3DPnP.push_back(points3D[match.queryIdx]);
+    }
+    Mat r, t, indexInliers;
+    solvePnPRansac(points3DPnP, points2DPnP, camera->getKMatxCV, 
+        noArray(), r, t, false, 100, 8.0, 0.99, indexInliers);
+    Mat R;
+    // 旋转向量转旋转矩阵
+    Rodrigues(r, R);
+    
+    keyFrame2->frame->Tcw = SE3(
+        SO3(r.at<double>(0, 0), r.at<double>(1, 0), r.at<double>(2, 0)),
+        Vector3d(t.at<double>(0, 0), t.at<double>(1, 0), t.at<double>(2, 0)));
+    
+    if ((float)indexInliers.rows < 30) {
+        cout<< "current frame has bad match points"<<endl;
+    }
+
+    matchFeatures(matches);
+
+    vector<Point2f> matchPoints1, matchPoints2;
+    for (auto &match:matches) {
+        matchPoints1.push_back(keyFrame1->keyPoints[match.queryIdx].pt);
+        matchPoints2.push_back(keyFrame2->keyPoints[match.trainIdx].pt);
+    }
+    Mat inlierMask;
+    findEssentialMat(matchPoints1, matchPoints2, keyFrame2->frame->camera->getKMatxCV(), RANSAC, 0.999, 1.0, inlierMask);
+
+    vector<Point2f> matchPoints1Norm, matchPoints2Norm;
+    matchPoints1Norm.reserve(matches.size());
+    matchPoints2Norm.reserve(matches.size());
+    for (auto &match:matches) {
+        matchPoints1Norm.push_back(keyFrame1->frame->camera->pixelToNormal(keyFrame1->keyPoints[match.queryIdx].pt));
+        matchPoints2Norm.push_back(keyFrame2->frame->camera->pixelToNormal(keyFrame2->keyPoints[match.trainIdx].pt));
+    }
+    Mat points4D;
+    triangulatePoints(keyFrame1->frame->getTcw34MatCV(CV_32F), keyFrame2->frame->getTcw34MatCV(CV_32F),
+        matchPoints1Norm, matchPoints2Norm, points4D);
+    saveMapPoints(inlierMask, points4D, matches);
+    saveFrame();
 
 }
 
