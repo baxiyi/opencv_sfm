@@ -6,10 +6,14 @@ void SFM::addImages(const vector<string> &imageDir, Camera::Ptr camera) {
     Mat image1 = imread(*imageDirIter++);
     Mat image2 = imread(*imageDirIter++);
     init(image1, image2, camera);
+    // map->visualCloudViewer();
     for (; imageDirIter != imageDir.end(); ++imageDirIter) {
         Mat image = imread(*imageDirIter);
         step(image, camera);
     }
+    BundleAdj ba;
+    ba(map);
+    map->visualCloudViewer();
 }
 
 void SFM::init(Mat &image1, Mat &image2, Camera::Ptr camera) {

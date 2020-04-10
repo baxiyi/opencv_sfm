@@ -4,8 +4,11 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
+                "/usr/include",
                 "/usr/include/eigen3",
-                "~/Sophus"
+                "~/Sophus",
+                "/usr/include/pcl-1.8",
+                "/usr/include/vtk-6.3"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",
