@@ -1,3 +1,6 @@
+#ifndef _BUNDLEADJ_H
+#define _BUNDLEADJ_H
+
 #include <ceres/ceres.h>
 #include <ceres/rotation.h>
 #include <opencv2/opencv.hpp>
@@ -51,3 +54,5 @@ class BundleAdj {
         BundleAdj();
         void operator()(Map::Ptr &map);
 };
+
+#endif

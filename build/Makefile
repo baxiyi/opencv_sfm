@@ -110,6 +110,208 @@ depend:
 	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
+#=============================================================================
+# Target rules for targets named sfm_test
+
+# Build rule for target.
+sfm_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sfm_test
+.PHONY : sfm_test
+
+# fast build rule for target.
+sfm_test/fast:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/build
+.PHONY : sfm_test/fast
+
+bundleAdj/bundleAdj.o: bundleAdj/bundleAdj.cpp.o
+
+.PHONY : bundleAdj/bundleAdj.o
+
+# target to build an object file
+bundleAdj/bundleAdj.cpp.o:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/bundleAdj/bundleAdj.cpp.o
+.PHONY : bundleAdj/bundleAdj.cpp.o
+
+bundleAdj/bundleAdj.i: bundleAdj/bundleAdj.cpp.i
+
+.PHONY : bundleAdj/bundleAdj.i
+
+# target to preprocess a source file
+bundleAdj/bundleAdj.cpp.i:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/bundleAdj/bundleAdj.cpp.i
+.PHONY : bundleAdj/bundleAdj.cpp.i
+
+bundleAdj/bundleAdj.s: bundleAdj/bundleAdj.cpp.s
+
+.PHONY : bundleAdj/bundleAdj.s
+
+# target to generate assembly for a file
+bundleAdj/bundleAdj.cpp.s:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/bundleAdj/bundleAdj.cpp.s
+.PHONY : bundleAdj/bundleAdj.cpp.s
+
+camera/camera.o: camera/camera.cpp.o
+
+.PHONY : camera/camera.o
+
+# target to build an object file
+camera/camera.cpp.o:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/camera/camera.cpp.o
+.PHONY : camera/camera.cpp.o
+
+camera/camera.i: camera/camera.cpp.i
+
+.PHONY : camera/camera.i
+
+# target to preprocess a source file
+camera/camera.cpp.i:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/camera/camera.cpp.i
+.PHONY : camera/camera.cpp.i
+
+camera/camera.s: camera/camera.cpp.s
+
+.PHONY : camera/camera.s
+
+# target to generate assembly for a file
+camera/camera.cpp.s:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/camera/camera.cpp.s
+.PHONY : camera/camera.cpp.s
+
+frame/frame.o: frame/frame.cpp.o
+
+.PHONY : frame/frame.o
+
+# target to build an object file
+frame/frame.cpp.o:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/frame/frame.cpp.o
+.PHONY : frame/frame.cpp.o
+
+frame/frame.i: frame/frame.cpp.i
+
+.PHONY : frame/frame.i
+
+# target to preprocess a source file
+frame/frame.cpp.i:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/frame/frame.cpp.i
+.PHONY : frame/frame.cpp.i
+
+frame/frame.s: frame/frame.cpp.s
+
+.PHONY : frame/frame.s
+
+# target to generate assembly for a file
+frame/frame.cpp.s:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/frame/frame.cpp.s
+.PHONY : frame/frame.cpp.s
+
+main.o: main.cpp.o
+
+.PHONY : main.o
+
+# target to build an object file
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/main.cpp.o
+.PHONY : main.cpp.o
+
+main.i: main.cpp.i
+
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/main.cpp.s
+.PHONY : main.cpp.s
+
+map/map.o: map/map.cpp.o
+
+.PHONY : map/map.o
+
+# target to build an object file
+map/map.cpp.o:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/map/map.cpp.o
+.PHONY : map/map.cpp.o
+
+map/map.i: map/map.cpp.i
+
+.PHONY : map/map.i
+
+# target to preprocess a source file
+map/map.cpp.i:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/map/map.cpp.i
+.PHONY : map/map.cpp.i
+
+map/map.s: map/map.cpp.s
+
+.PHONY : map/map.s
+
+# target to generate assembly for a file
+map/map.cpp.s:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/map/map.cpp.s
+.PHONY : map/map.cpp.s
+
+mapPoint/mapPoint.o: mapPoint/mapPoint.cpp.o
+
+.PHONY : mapPoint/mapPoint.o
+
+# target to build an object file
+mapPoint/mapPoint.cpp.o:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/mapPoint/mapPoint.cpp.o
+.PHONY : mapPoint/mapPoint.cpp.o
+
+mapPoint/mapPoint.i: mapPoint/mapPoint.cpp.i
+
+.PHONY : mapPoint/mapPoint.i
+
+# target to preprocess a source file
+mapPoint/mapPoint.cpp.i:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/mapPoint/mapPoint.cpp.i
+.PHONY : mapPoint/mapPoint.cpp.i
+
+mapPoint/mapPoint.s: mapPoint/mapPoint.cpp.s
+
+.PHONY : mapPoint/mapPoint.s
+
+# target to generate assembly for a file
+mapPoint/mapPoint.cpp.s:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/mapPoint/mapPoint.cpp.s
+.PHONY : mapPoint/mapPoint.cpp.s
+
+sfm.o: sfm.cpp.o
+
+.PHONY : sfm.o
+
+# target to build an object file
+sfm.cpp.o:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/sfm.cpp.o
+.PHONY : sfm.cpp.o
+
+sfm.i: sfm.cpp.i
+
+.PHONY : sfm.i
+
+# target to preprocess a source file
+sfm.cpp.i:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/sfm.cpp.i
+.PHONY : sfm.cpp.i
+
+sfm.s: sfm.cpp.s
+
+.PHONY : sfm.s
+
+# target to generate assembly for a file
+sfm.cpp.s:
+	$(MAKE) -f CMakeFiles/sfm_test.dir/build.make CMakeFiles/sfm_test.dir/sfm.cpp.s
+.PHONY : sfm.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -117,7 +319,29 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
+	@echo "... sfm_test"
 	@echo "... edit_cache"
+	@echo "... bundleAdj/bundleAdj.o"
+	@echo "... bundleAdj/bundleAdj.i"
+	@echo "... bundleAdj/bundleAdj.s"
+	@echo "... camera/camera.o"
+	@echo "... camera/camera.i"
+	@echo "... camera/camera.s"
+	@echo "... frame/frame.o"
+	@echo "... frame/frame.i"
+	@echo "... frame/frame.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
+	@echo "... map/map.o"
+	@echo "... map/map.i"
+	@echo "... map/map.s"
+	@echo "... mapPoint/mapPoint.o"
+	@echo "... mapPoint/mapPoint.i"
+	@echo "... mapPoint/mapPoint.s"
+	@echo "... sfm.o"
+	@echo "... sfm.i"
+	@echo "... sfm.s"
 .PHONY : help
 
 

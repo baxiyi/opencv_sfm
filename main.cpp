@@ -24,7 +24,7 @@ int main() {
             return false;
         }
         for (directory_entry &x : directory_iterator(dirpath)) {
-            string extension = x.path().extension.string();
+            string extension = x.path().extension().string();
             boost::algorithm::to_lower(extension);
             if (extension == ".jpg" or extension == ".png") {
                 imagesDir.push_back(x.path().string());

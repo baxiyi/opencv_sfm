@@ -1,3 +1,6 @@
+#ifndef _SFM_H
+#define _SFM_H
+
 #include "includes.h"
 #include "map/map.h"
 #include "frame/frame.h"
@@ -45,3 +48,5 @@ class SFM {
 
 
 };
+
+#endif

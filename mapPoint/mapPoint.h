@@ -1,5 +1,8 @@
+#ifndef _MAPPOINT_H
+#define _MAPPOINT_H
+
 #include "../includes.h"
-#include "frame/frame.h"
+#include "../frame/frame.h"
 
 class MapPoint {
     public:
@@ -33,3 +36,5 @@ class MapPoint {
 
         void addObservedFrame(const Frame::Ptr &observedFrame, const cv::Point2d &p_p);
 };
+
+#endif

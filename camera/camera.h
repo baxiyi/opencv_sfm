@@ -1,3 +1,6 @@
+#ifndef _CAMERA_H
+#define _CAMERA_H
+
 #include "opencv2/opencv.hpp"
 #include "../includes.h"
 
@@ -33,3 +36,5 @@ class Camera {
             return (Mat_<float>(3, 3) << fx, 0, cx, 0, fy, cy, 0,  0, 1);
         }
  };
+
+ #endif

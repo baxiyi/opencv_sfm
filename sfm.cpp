@@ -9,8 +9,6 @@ void SFM::addImages(const vector<string> &imageDir, Camera::Ptr camera) {
     for (; imageDirIter != imageDir.end(); ++imageDirIter) {
         Mat image = imread(*imageDirIter);
         step(image, camera);
-        BundleAdj ba;
-        ba(map);
     }
 }
 
@@ -35,7 +33,7 @@ void SFM::init(Mat &image1, Mat &image2, Camera::Ptr camera) {
     
     Mat R, t, points4D;
     recoverPose(essentialMatrix, matchPoints1, matchPoints2, 
-        keyFrame2->frame->camera->getKMatxCV(), R, t, threshold, inlierMask, points4D);
+        keyFrame2->frame->camera->getKMatxCV(), R, t, 1e10, inlierMask, points4D);
     Eigen::Matrix3d R2;
     cv2eigen(R, R2);
     keyFrame2->frame->Tcw = SE3(R2, 
@@ -66,7 +64,7 @@ void SFM::step(Mat &image, const Camera::Ptr &camera) {
         points3DPnP.push_back(points3D[match.queryIdx]);
     }
     Mat r, t, indexInliers;
-    solvePnPRansac(points3DPnP, points2DPnP, camera->getKMatxCV, 
+    solvePnPRansac(points3DPnP, points2DPnP, camera->getKMatxCV(), 
         noArray(), r, t, false, 100, 8.0, 0.99, indexInliers);
     Mat R;
     // 旋转向量转旋转矩阵
@@ -146,8 +144,10 @@ void SFM::saveMapPoints(const Mat& inlierMask, const Mat &points4D, const vector
         localMap->addFrame(keyFrame1->frame);
         localMap->addFrame(keyFrame2->frame);
     }
+    // std::cout<<points4D.cols<<endl;
     for (int i = 0; i < points4D.cols; i++) {
         MapPoint::Ptr mapPoint;
+        // std::cout<<inlierMask.rows<<endl;
         if (!inlierMask.empty() && !inlierMask.at<uint8_t>(i, 0))
             continue;
         Mat descriptor = keyFrame2->descriptors.row(matches[i].trainIdx);
@@ -191,6 +191,8 @@ void SFM::saveMapPoints(const Mat& inlierMask, const Mat &points4D, const vector
 
         }
     }
+    // cout<<localMap->frames.size()<<endl;
+    // cout<<localMap->mapPoints.size()<<endl;
     BundleAdj ba;
     ba(localMap);
 }

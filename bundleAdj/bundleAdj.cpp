@@ -25,6 +25,7 @@ void BundleAdj::bundleAdjustment() {
         problem.AddParameterBlock(cameraIntrinsic.second.val, 4);
     }
     ceres::LossFunction *lossFunction = new ceres::HuberLoss(4);
+    // cout<<mapPointsPos.size()<<endl;
     for (auto &mapPointPos:mapPointsPos) {
         for (auto &frame:mapPointPos.first->frames) {
             ceres::CostFunction *costFunction = new ceres::AutoDiffCostFunction<ReprojectCost, 2, 4, 6, 3>(

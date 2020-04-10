@@ -1,6 +1,8 @@
+#ifndef _FRAME_H
+#define _FRAME_H
 
 #include "../includes.h"
-#include "camera/camera.h"
+#include "../camera/camera.h"
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/eigen.hpp>
 
@@ -52,3 +54,5 @@ class Frame {
 
 
 };
+
+#endif
