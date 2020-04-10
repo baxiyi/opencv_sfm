@@ -49,7 +49,7 @@ void SFM::step(Mat &image, const Camera::Ptr &camera) {
     vector<Point3f> points3D;
     for (MapPoint::Ptr &point:map->mapPoints) {
         if (keyFrame1->frame->isInFrame(point->pos)) {
-            points3D.push_back(point->getPostPoint3_CV<float>());
+            points3D.push_back(point->getPosPoint3_CV<float>());
             descriptorMap.push_back(point->descriptor);
         }
     }
@@ -186,6 +186,7 @@ void SFM::saveMapPoints(const Mat& inlierMask, const Mat &points4D, const vector
             keyFrame2->inlinerPoints[matches[i].trainIdx] = mapPoint;
             mapPoint->addObservedFrame(keyFrame1->frame, keyFrame1->keyPoints[matches[i].queryIdx].pt);
             mapPoint->addObservedFrame(keyFrame2->frame, keyFrame2->keyPoints[matches[i].trainIdx].pt);
+            map->addMapPoint(mapPoint);
 
             localMap->addMapPoint(mapPoint);
 

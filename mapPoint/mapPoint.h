@@ -18,7 +18,7 @@ class MapPoint {
             pos(pos), descriptor(descriptor), rgb(rgb) {}
         
         template<typename T>
-        cv::Point3_<T> getPostPoint3_CV() const {
+        cv::Point3_<T> getPosPoint3_CV() const {
             return cv::Point3_<T>(pos(0, 0), pos(1, 0), pos(2, 0));
         }
 
