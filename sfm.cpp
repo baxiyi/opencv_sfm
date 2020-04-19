@@ -6,13 +6,12 @@ void SFM::addImages(const vector<string> &imageDir, Camera::Ptr camera) {
     Mat image1 = imread(*imageDirIter++);
     Mat image2 = imread(*imageDirIter++);
     init(image1, image2, camera);
-    // map->visualCloudViewer();
+    map->visualCloudViewer();
     for (; imageDirIter != imageDir.end(); ++imageDirIter) {
         Mat image = imread(*imageDirIter);
         step(image, camera);
+        map->visualCloudViewer();
     }
-    BundleAdj ba;
-    ba(map);
     map->visualCloudViewer();
 }
 
@@ -37,7 +36,7 @@ void SFM::init(Mat &image1, Mat &image2, Camera::Ptr camera) {
     
     Mat R, t, points4D;
     recoverPose(essentialMatrix, matchPoints1, matchPoints2, 
-        keyFrame2->frame->camera->getKMatxCV(), R, t, 1e10, inlierMask, points4D);
+        keyFrame2->frame->camera->getKMatxCV(), R, t, 10, inlierMask, points4D);
     Eigen::Matrix3d R2;
     cv2eigen(R, R2);
     keyFrame2->frame->Tcw = SE3(R2, 
@@ -77,9 +76,11 @@ void SFM::step(Mat &image, const Camera::Ptr &camera) {
     keyFrame2->frame->Tcw = SE3(
         SO3(r.at<double>(0, 0), r.at<double>(1, 0), r.at<double>(2, 0)),
         Vector3d(t.at<double>(0, 0), t.at<double>(1, 0), t.at<double>(2, 0)));
-    
+    cout<<"rows";
+    cout<<(float)indexInliers.rows<<endl;
     if ((float)indexInliers.rows < 30) {
         cout<< "current frame has bad match points"<<endl;
+        return;
     }
 
     matchFeatures(matches);
@@ -90,7 +91,7 @@ void SFM::step(Mat &image, const Camera::Ptr &camera) {
         matchPoints2.push_back(keyFrame2->keyPoints[match.trainIdx].pt);
     }
     Mat inlierMask;
-    findEssentialMat(matchPoints1, matchPoints2, keyFrame2->frame->camera->getKMatxCV(), RANSAC, 0.999, 1.0, inlierMask);
+    findEssentialMat(matchPoints1, matchPoints2, keyFrame2->frame->camera->getKMatxCV(), RANSAC, 0.999, 0.9, inlierMask);
 
     vector<Point2f> matchPoints1Norm, matchPoints2Norm;
     matchPoints1Norm.reserve(matches.size());

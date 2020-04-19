@@ -26,7 +26,10 @@ class BundleAdj {
                 const T x = pos_proj[0] / pos_proj[2];
                 const T y = pos_proj[1] / pos_proj[2];
                 
-                const T fx = intrinsic[0], fy = intrinsic[1], cx = intrinsic[2], cy = intrinsic[3];
+                const T fx = intrinsic[0];
+                const T fy = intrinsic[1];
+                const T cx = intrinsic[2];
+                const T cy = intrinsic[3];
 
                 const T u = fx * x + cx;
                 const T v = fy * y + cy;
